@@ -41,6 +41,13 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.paging.common.android)
+    implementation ("com.google.accompanist:accompanist-pager:0.12.0")
+
+    implementation ("androidx.compose.ui:ui:1.1.0-alpha02")
+    implementation ("androidx.compose.material:material:1.1.0-alpha02")
+    implementation ("androidx.activity:activity-compose:1.3.1")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -56,4 +63,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
 }
