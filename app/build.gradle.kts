@@ -43,6 +43,7 @@ dependencies {
 
     implementation(libs.androidx.paging.common.android)
     implementation ("com.google.accompanist:accompanist-pager:0.12.0")
+    implementation(libs.androidx.navigation.compose)
 
     implementation ("androidx.compose.ui:ui:1.1.0-alpha02")
     implementation ("androidx.compose.material:material:1.1.0-alpha02")

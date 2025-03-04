@@ -1,6 +1,7 @@
 package krv.fit.bstu.task_2_new
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -32,19 +34,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import krv.fit.bstu.task_2.ItemOnboarding
+import krv.fit.bstu.task_2_new.navigation.Routes
 import krv.fit.bstu.task_2_new.ui.theme.bgPage4
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnboardingScreen(
     itemOnboarding: ItemOnboarding,
     currentPage: Int,
     onSkipClick: () -> Unit = {},
-    onNextClick: () -> Unit = {}) {
+    onNextClick: () -> Unit = {},
+    navController: NavController,
+    pageState: PagerState
+) {
 
     if(currentPage == 4){
-        FinishedPage()
+
     }else{
         Box(
             modifier = Modifier.fillMaxSize().background(itemOnboarding.bgColor),
@@ -84,7 +92,7 @@ fun OnboardingScreen(
                         .padding(top = 10.dp)
                 )
 
-                BottomSection(onSkipClick, onNextClick,itemOnboarding, currentPage)
+                BottomSection(onSkipClick, onNextClick,itemOnboarding, currentPage, pageState, navController)
 
             }
         }
@@ -93,12 +101,15 @@ fun OnboardingScreen(
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BottomSection(
     onSkipClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
     itemOnboarding: ItemOnboarding,
     currentPage: Int,
+    pageState: PagerState,
+    navController: NavController
 ) {
 
     Box(
@@ -114,7 +125,7 @@ fun BottomSection(
 
             Column(modifier = Modifier.weight(1f)){
 
-                PagerIndicator(4, currentPage)
+                PagerIndicator(pageState.pageCount, currentPage)
                 TextButton(
                     onClick = onSkipClick,
                 ) {
@@ -129,7 +140,14 @@ fun BottomSection(
 
 
             FloatingActionButton(
-                onNextClick,
+                onClick = {
+                    if (currentPage < pageState.pageCount - 1) {
+                        onNextClick()
+                    } else {
+
+                        navController.navigate(Routes.Home.route)
+                    }
+                },
                 modifier = Modifier.padding(end = 12.dp, top=6.dp),
                 shape = CircleShape,
                 containerColor = Color.White,
@@ -183,26 +201,3 @@ fun IndicatorIcon(isSelected: Boolean){
 }
 
 
-@Composable
-fun  FinishedPage(){
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(bgPage4),
-    )
-    {
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ){
-            Text(
-                text = "You are a clever person!",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                fontFamily = FontFamily.Monospace
-            )
-        }
-    }
-}

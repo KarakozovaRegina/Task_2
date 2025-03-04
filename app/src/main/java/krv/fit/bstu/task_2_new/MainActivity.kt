@@ -46,9 +46,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.paging.Pager
 import kotlinx.coroutines.launch
 import krv.fit.bstu.task_2.ItemOnboarding
+import krv.fit.bstu.task_2_new.navigation.Navigation
 import krv.fit.bstu.task_2_new.ui.theme.Task_2_newTheme
 import krv.fit.bstu.task_2_new.ui.theme.bgPage1
 import krv.fit.bstu.task_2_new.ui.theme.bgPage2
@@ -61,11 +64,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Task_2_newTheme {
-                Surface {
-                    PagerContent()
-                }
-            }
+            Navigation()
         }
     }
 }
@@ -75,7 +74,7 @@ class MainActivity : ComponentActivity() {
 
 @ExperimentalFoundationApi
 @Composable
-fun PagerContent(){
+fun PagerContent(navController: NavController){
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -104,7 +103,8 @@ fun PagerContent(){
                 if (pageState.currentPage + 1 < items.size) scope.launch {
                     pageState.scrollToPage(pageState.currentPage + 1)
                 }
-            }
+            },
+            navController
 
 
         )
@@ -124,7 +124,8 @@ fun OnboardingPage(
     pageState: PagerState,
     modifier: Modifier = Modifier,
     onSkipClick: () -> Unit = {},
-    onNextClick: () -> Unit = {}
+    onNextClick: () -> Unit = {},
+    navController: NavController
 ){
     Box(
         modifier = modifier)
@@ -134,7 +135,7 @@ fun OnboardingPage(
             HorizontalPager(state = pageState) {
                 page ->
                 val curentPage: Int = page
-                OnboardingScreen(items[page], curentPage, onSkipClick, onNextClick)
+                OnboardingScreen(items[page], curentPage, onSkipClick, onNextClick, navController,pageState)
             }
         }
     }
@@ -145,7 +146,7 @@ fun OnboardingPage(
 @Composable
 fun OnboardingScreenPreview() {
     Task_2_newTheme {
-        PagerContent()
+
     }
 }
 

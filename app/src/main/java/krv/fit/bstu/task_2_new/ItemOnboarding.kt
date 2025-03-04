@@ -20,32 +20,26 @@ data class ItemOnboarding(
             return listOf(
                 ItemOnboarding(
                     R.drawable.img_car1,
-                    "Your first car without a driver's license",
-                    "Goes to meet people who just got their license",
+                    TextOnBoarding.text_1.value,
+                    TextOnBoarding.title_1.value,
                     bgPage1
                 ),
                 ItemOnboarding(
                     R.drawable.img_car2,
-                    "Always there: more than 1000 cars in Tbilisi",
-                    "Our company is a leader by the number of cars in the fleet",
+                    TextOnBoarding.text_2.value,
+                    TextOnBoarding.title_2.value,
                     bgPage2
                 ),
                 ItemOnboarding(
                     R.drawable.img_car3,
-                    "Do not pay for parking, maintenance and gasoline",
-                    "We will pay for you, all expenses related to the car",
+                    TextOnBoarding.text_3.value,
+                    TextOnBoarding.title_3.value,
                     bgPage3
                 ),
                 ItemOnboarding(
                     R.drawable.img_car4,
-                    "29 car models: from Skoda Octavia to Porsche 911",
-                    "Choose between regular car models or exclusive ones",
-                    bgPage4
-                ),
-                ItemOnboarding(
-                    R.drawable.img_car4,
-                    "",
-                    "",
+                    TextOnBoarding.text_4.value,
+                    TextOnBoarding.title_4.value,
                     bgPage4
                 )
             )
@@ -54,3 +48,14 @@ data class ItemOnboarding(
 }
 
 
+enum class TextOnBoarding(val value: String) {
+
+    title_1("Your first car without a driver's license"),
+    title_2("Always there: more than 1000 cars in Tbilisi"),
+    title_3("Do not pay for parking, maintenance and gasoline"),
+    title_4("29 car models: from Skoda Octavia to Porsche 911"),
+    text_1("Goes to meet people who just got their license"),
+    text_2("Our company is a leader by the number of cars in the fleet"),
+    text_3("We will pay for you, all expenses related to the car"),
+    text_4("Choose between regular car models or exclusive ones"),
+}
