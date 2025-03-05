@@ -51,6 +51,7 @@ import androidx.navigation.Navigation
 import androidx.paging.Pager
 import kotlinx.coroutines.launch
 import krv.fit.bstu.task_2.ItemOnboarding
+import krv.fit.bstu.task_2.getList
 import krv.fit.bstu.task_2_new.navigation.Navigation
 import krv.fit.bstu.task_2_new.ui.theme.Task_2_newTheme
 import krv.fit.bstu.task_2_new.ui.theme.bgPage1
@@ -78,7 +79,7 @@ fun PagerContent(navController: NavController){
 
     Column(modifier = Modifier.fillMaxSize()) {
 
-        val items = ItemOnboarding.getList()
+        val items = getList()
         val scope = rememberCoroutineScope()
         val pageState = rememberPagerState(
             pageCount = { items.size },
